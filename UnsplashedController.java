@@ -1,14 +1,31 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+
+import java.io.FileReader;
+import java.io.Reader;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
-public class UnsplashedController implements MoodboardObserver {
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+public class UnsplashedController implements Initializable{
+
+    //All of the variables referenced from the FXML file
     @FXML
     private ImageView imageOne;
 
@@ -29,34 +46,80 @@ public class UnsplashedController implements MoodboardObserver {
     
     private String query;
     
-    //added Access Key
-    private String accessKey = "g7nMae5ks7o2O1w9TIvHIkmdA5jArZ1S8fHlfutLaZo"; 
+    //Variables used internally, not linked to FXML Document
+
+    //Used to retrieve data from the API
+    private HttpClient client;
+    private final String APIKEY = "g7nMae5ks7o2O1w9TIvHIkmdA5jArZ1S8fHlfutLaZo";
     
-    private String imageURL = "https://images.unsplash.com/photo-1682686580950-960d1d513532?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    private String imageURL = "";
 
     //added initialize controller for unsplashAPI & observer
-    public void initialize(){
-      UnsplashAPI  unsplashAPI = new UnsplashAPI(accessKey);
-      moodboard = new Moodboard(unsplashAPI); 
-      moodboard.addObserver(this);
+
+
+   protected void updateMoodboard(){
+        if (this.client == null)
+            this.client = HttpClient.newHttpClient();
+
+       HttpRequest request = HttpRequest.newBuilder()
+               .uri(URI.create("https://api.unsplash.com/search/photos?page=1&query=" + query + "&client_id=" + APIKEY))
+               .GET()
+               .build();
+
+
+       client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+               .thenApply(HttpResponse::body)
+               .thenAccept(this::processMoodData);
+
    }
-      
+
+   protected void processMoodData(String data) {
+
+
+        //use GSON to convert JSON to a POJO
+       Gson gson = new Gson();
+       this.moodboard = gson.fromJson(data, Moodboard.class);
+       System.out.println(data);
+
+       //Schedule UI updates on the GUI thread
+       //This is important because the data download happens in the background
+       Platform.runLater(new Runnable() {
+           @Override
+           public void run() {
+               updateUI();
+           }
+       });
+
+   }
+
+   //Update the GUI to reflect changes
+    //Simple app, update anything and everything all the time
+    protected void updateUI(){
+
+
+
+
+
+    }
     @FXML
     void searchClick(ActionEvent event) {
             query = userQuery.getText();
             System.out.println(query);
-            Image image1 = new Image(imageURL);
-            imageOne.setImage(image1);
-            imageTwo.setImage(image1);
-            userQuery.clear();
+            updateMoodboard();
+
     }
     
     //updates the interface
-    @Override
+
     public void update(Moodboard moodboard) { 
       Image image1 = new Image(imageURL); 
       imageOne.setImage(image1); 
       imageTwo.setImage(image1); 
-    } 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources){
+       Preferences p = Preferences.userNodeForPackage(UnsplashedController.class);
+    }
 
 }

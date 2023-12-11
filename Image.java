@@ -1,8 +1,9 @@
-public class Image { 
+public class Image {
 
    private String imageUrl; 
    private String details; 
-   
+
+   public Image(){};
    public Image(String imageUrl, String details) { 
       this.imageUrl = imageUrl; 
       this.details = details;
