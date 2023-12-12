@@ -44,16 +44,7 @@ public class UnsplashedController implements Initializable{
     //added Moodboard 
     private Moodboard moodboard;
     
-    //added from Moodboard.java
-    public Results[] results;
-    
     private String query;
-    
-    //added from Urls.java
-    private String small;
-    
-    //added from Results.java
-    public Urls urls;
     
     //Variables used internally, not linked to FXML Document
 
@@ -62,15 +53,10 @@ public class UnsplashedController implements Initializable{
     private final String APIKEY = "g7nMae5ks7o2O1w9TIvHIkmdA5jArZ1S8fHlfutLaZo";
     
     private String imageURL = "";
+    private String imageURL1 = "";
 
     //added initialize controller for unsplashAPI & observer
-    @FXML
-    void searchClick(ActionEvent event) {
-        query = userQuery.getText();
-        System.out.println(query);
-        updateMoodboard();
 
-    }
 
    protected void updateMoodboard(){
         if (this.client == null)
@@ -90,11 +76,11 @@ public class UnsplashedController implements Initializable{
 
    protected void processMoodData(String data) {
 
-       System.out.println(data);
+
         //use GSON to convert JSON to a POJO
        Gson gson = new Gson();
        this.moodboard = gson.fromJson(data, Moodboard.class);
-       System.out.println(this.moodboard);
+       System.out.println(moodboard);
 
        //Schedule UI updates on the GUI thread
        //This is important because the data download happens in the background
@@ -110,21 +96,31 @@ public class UnsplashedController implements Initializable{
    //Update the GUI to reflect changes
     //Simple app, update anything and everything all the time
     protected void updateUI(){
+    imageURL = moodboard.results[0].urls.small;
+    Image image1 = new Image(imageURL);
+    imageOne.setImage(image1);
 
-        //Is this the correct POJO order to get the url?
-        imageURL = moodboard.results[0].urls.small;
-        Image image1 = new Image(imageURL);
-        imageOne.setImage(image1);
+    imageURL1 = moodboard.results[1].urls.small;
+    Image image2 = new Image(imageURL1);
+    imageTwo.setImage(image2);
+
+
     }
+    @FXML
+    void searchClick(ActionEvent event) {
+            query = userQuery.getText();
+            System.out.println(query);
+            updateMoodboard();
 
+    }
     
     //updates the interface
 
-//    public void update(Moodboard moodboard) {
-//      Image image1 = new Image(imageURL);
-//      imageOne.setImage(image1);
-//      imageTwo.setImage(image1);
-//    }
+    public void update(Moodboard moodboard) { 
+      Image image1 = new Image(imageURL); 
+      imageOne.setImage(image1); 
+      imageTwo.setImage(image1); 
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
