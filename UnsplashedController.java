@@ -44,7 +44,16 @@ public class UnsplashedController implements Initializable{
     //added Moodboard 
     private Moodboard moodboard;
     
+    //added from Moodboard.java
+    public Results[] results;
+    
     private String query;
+    
+    //added from Urls.java
+    private String small;
+    
+    //added from Results.java
+    public Urls urls;
     
     //Variables used internally, not linked to FXML Document
 
@@ -103,7 +112,7 @@ public class UnsplashedController implements Initializable{
     protected void updateUI(){
 
         //Is this the correct POJO order to get the url?
-        imageURL = moodboard.results.urls.small;
+        imageURL = moodboard.results[0].urls.small;
         Image image1 = new Image(imageURL);
         imageOne.setImage(image1);
     }
