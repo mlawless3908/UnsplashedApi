@@ -31,9 +31,7 @@ public class UnsplashedController implements Initializable{
 
     @FXML
     private ImageView imageTwo;
-
-    @FXML
-    private Button refreshButton;
+    
 
     @FXML
     private Button searchButton;
