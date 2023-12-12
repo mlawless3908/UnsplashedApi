@@ -113,14 +113,8 @@ public class UnsplashedController implements Initializable{
             updateMoodboard();
 
     }
-    
-    //updates the interface
 
-    public void update(Moodboard moodboard) { 
-      Image image1 = new Image(imageURL); 
-      imageOne.setImage(image1); 
-      imageTwo.setImage(image1); 
-    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
