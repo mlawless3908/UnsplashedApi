@@ -55,7 +55,13 @@ public class UnsplashedController implements Initializable{
     private String imageURL = "";
 
     //added initialize controller for unsplashAPI & observer
+    @FXML
+    void searchClick(ActionEvent event) {
+        query = userQuery.getText();
+        System.out.println(query);
+        updateMoodboard();
 
+    }
 
    protected void updateMoodboard(){
         if (this.client == null)
@@ -75,11 +81,11 @@ public class UnsplashedController implements Initializable{
 
    protected void processMoodData(String data) {
 
-
+       System.out.println(data);
         //use GSON to convert JSON to a POJO
        Gson gson = new Gson();
        this.moodboard = gson.fromJson(data, Moodboard.class);
-       System.out.println(data);
+       System.out.println(this.moodboard);
 
        //Schedule UI updates on the GUI thread
        //This is important because the data download happens in the background
@@ -96,26 +102,20 @@ public class UnsplashedController implements Initializable{
     //Simple app, update anything and everything all the time
     protected void updateUI(){
 
-
-
-
-
+        //Is this the correct POJO order to get the url?
+        imageURL = moodboard.results.urls.small;
+        Image image1 = new Image(imageURL);
+        imageOne.setImage(image1);
     }
-    @FXML
-    void searchClick(ActionEvent event) {
-            query = userQuery.getText();
-            System.out.println(query);
-            updateMoodboard();
 
-    }
     
     //updates the interface
 
-    public void update(Moodboard moodboard) { 
-      Image image1 = new Image(imageURL); 
-      imageOne.setImage(image1); 
-      imageTwo.setImage(image1); 
-    }
+//    public void update(Moodboard moodboard) {
+//      Image image1 = new Image(imageURL);
+//      imageOne.setImage(image1);
+//      imageTwo.setImage(image1);
+//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){

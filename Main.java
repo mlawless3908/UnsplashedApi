@@ -1,10 +1,9 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-
 
 
 public class Main extends Application {
@@ -17,13 +16,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception
     {
-
-//        //added access Key //
-//        String accessKey = "g7nMae5ks7o2O1w9TIvHIkmdA5jArZ1S8fHlfutLaZo";
-//
-//        //Morgaine added UnsplashAPI with access key & Create Moodboard instance using the initialized UnsplashAPI //
-//        UnsplashAPI unsplashAPI = new UnsplashAPI(accessKey);
-//        Moodboard moodboard = new Moodboard(unsplashAPI);
 
 
         // Load the GUI from FXML built in Scene Builder

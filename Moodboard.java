@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Moodboard {
 
-   public Results[] results;
+   public Results results;
 }
    
 
