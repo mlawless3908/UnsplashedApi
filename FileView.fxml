@@ -40,7 +40,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="759.0" prefWidth="1163.0" style="-fx-background-color: #FFEFE8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnsplashedController">
    <children>
       <VBox layoutX="11.0" layoutY="10.0" prefHeight="67.0" prefWidth="1021.0">
@@ -54,12 +53,7 @@
       </VBox>
       <ImageView fx:id="imageOne" fitHeight="433.0" fitWidth="468.0" layoutX="71.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true" />
       <TextArea fx:id="userQuery" layoutX="141.0" layoutY="103.0" prefHeight="37.0" prefWidth="896.0" promptText="Describe Your Mood" style="-fx-background-color: #C69774;" />
-      <Button fx:id="searchButton" layoutX="379.0" layoutY="162.0" mnemonicParsing="false" onAction="#searchClick" prefHeight="19.0" prefWidth="107.0" style="-fx-background-color: #C69774;" text="Search">
-         <font>
-            <Font name="Gabriola" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="refreshButton" layoutX="652.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #C69774;" text="Refresh">
+      <Button fx:id="searchButton" layoutX="460.0" layoutY="152.0" mnemonicParsing="false" onAction="#searchClick" prefHeight="54.0" prefWidth="159.0" style="-fx-background-color: #C69774;" text="Search">
          <font>
             <Font name="Gabriola" size="14.0" />
          </font>
