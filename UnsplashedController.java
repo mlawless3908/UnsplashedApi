@@ -7,12 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 
-import java.io.FileReader;
-import java.io.Reader;
-import javax.swing.*;
-import java.awt.event.MouseEvent;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -31,7 +26,7 @@ public class UnsplashedController implements Initializable{
 
     @FXML
     private ImageView imageTwo;
-    
+
 
     @FXML
     private Button searchButton;
@@ -102,7 +97,6 @@ public class UnsplashedController implements Initializable{
     Image image2 = new Image(imageURL1);
     imageTwo.setImage(image2);
 
-
     }
     @FXML
     void searchClick(ActionEvent event) {
@@ -111,8 +105,6 @@ public class UnsplashedController implements Initializable{
             updateMoodboard();
 
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
